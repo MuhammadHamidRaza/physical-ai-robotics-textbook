@@ -31,7 +31,19 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **Authoritative Source Mandate:** All information gathering and task execution must prioritize and use MCP tools and CLI commands.
+- [ ] **Execution Flow:** All interactions should prefer CLI and MCP tools over manual file creation or internal knowledge.
+- [ ] **Knowledge Capture (PHR):** Ensure PHRs are planned for every significant user interaction throughout the planning and implementation phases.
+- [ ] **Explicit ADR Suggestions:** Identify and flag any architecturally significant decisions for potential ADR documentation.
+- [ ] **Human as Tool Strategy:** Plan for explicit user input at points of ambiguity, unforeseen dependencies, architectural uncertainty, or major milestones.
+- [ ] **Default Policies:**
+    - [ ] Clarify and plan first.
+    - [ ] Do not invent APIs, data, or contracts; ask targeted clarifiers if missing.
+    - [ ] Never hardcode secrets or tokens; use `.env` and docs.
+    - [ ] Prefer the smallest viable diff; do not refactor unrelated code.
+    - [ ] Cite existing code with code references; propose new code in fenced blocks.
+    - [ ] Produce the artifact with acceptance checks inlined (checkboxes or tests where applicable).
+    - [ ] Add follow‑ups and risks (max 3 bullets).
 
 ## Project Structure
 
