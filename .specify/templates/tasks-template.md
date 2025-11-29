@@ -17,6 +17,12 @@ description: "Task list template for feature implementation"
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
 - Include exact file paths in descriptions
+- **Adherence to Constitution**: Each task description should implicitly or explicitly consider:
+    - Clear, testable acceptance criteria.
+    - Explicit error paths and constraints (where applicable).
+    - Striving for the smallest viable change.
+    - Creating PHRs for significant actions/decisions.
+    - Surfacing ADR suggestions for architecturally significant decisions.
 
 ## Path Conventions
 
