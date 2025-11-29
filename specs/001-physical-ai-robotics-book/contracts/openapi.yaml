@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: Physical AI & Humanoid Robotics Textbook API
+  version: 1.0.0
+  description: API for the RAG Chatbot, User Authentication, Personalization, and Translation features.
+
+servers:
+  - url: /api/v1
+    description: Main API server
+
+paths:
+  /auth/signup:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                software_background:
+                  type: string
+                hardware_background:
+                  type: string
+      responses:
+        '201':
+          description: User successfully registered
+        '400':
+          description: Invalid input
+
+  /auth/signin:
+    post:
+      summary: Authenticate an existing user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User successfully authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  token_type:
+                    type: string
+        '401':
+          description: Invalid credentials
+
+  /chatbot/query:
+    post:
+      summary: Submit a query to the RAG chatbot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query_text:
+                  type: string
+                context_text:
+                  type: string
+                  nullable: true
+                user_id:
+                  type: string
+                  nullable: true
+      responses:
+        '200':
+          description: Chatbot response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                  source_documents:
+                    type: array
+                    items:
+                      type: string
+        '500':
+          description: Internal server error
+
+  /content/{chapter_id}/personalize:
+    post:
+      summary: Personalize content for a specific chapter
+      parameters:
+        - name: chapter_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                settings:
+                  type: object
+                  additionalProperties:
+                    type: string
+      responses:
+        '200':
+          description: Content personalization updated
+        '401':
+          description: Unauthorized
+        '404':
+          description: Chapter not found
+
+  /content/{chapter_id}/translate/urdu:
+    get:
+      summary: Get translated content for a specific chapter in Urdu
+      parameters:
+        - name: chapter_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: user_id
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Translated chapter content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  translated_text:
+                    type: string
+        '404':
+          description: Chapter not found
